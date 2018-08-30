@@ -5,7 +5,7 @@ class App extends Component {
         super();
         this.state = {
             response: false,
-            endpoint: "http://127.0.0.1:5001"
+            endpoint: "http://dcodeit.net:5001"
         };
     }
     componentDidMount() {
@@ -15,15 +15,25 @@ class App extends Component {
     }
     render() {
         const { response } = this.state;
-        return (git init
-            <div style={{ textAlign: "center" }}>
-                {response
-                    ? <p>
-                        response2: {JSON.parse(response).curDayClose}
-                    </p>
-                    : <p>Loading...</p>}
+        if(response){
+            let resultObject = JSON.parse(response);
+            let result =  Object.keys(resultObject).map(function(key, index) {
+                return <div>{resultObject[key]}</div>
+            });
+        return (
+            <div>
+                <b>Response</b>:
+                <div>
+                    {
+                        result
+                    }
+                </div>
+
+
             </div>
-        );
+        )}else{
+            return 'Loading...'
+        }
     }
 }
 export default App;
