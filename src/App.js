@@ -4,29 +4,49 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            response: false,
-            endpoint: "http://dcodeit.net:5001"
+            response: {},
+            endpoint: "http://dcodeit.net:5001",
+
         };
+        this.symbols = ['ETHBTC', 'BTCUSDT', 'ETHUSDT']
+
     }
     componentDidMount() {
         const { endpoint } = this.state;
-        const socket = socketIOClient(endpoint+'?symbols=ETHBTC,BTCUSDT');
-        socket.on("TradesAPI", data => this.setState({ response: data }));
+        const socket = socketIOClient(endpoint+'?symbols='+this.symbols.join());
+        socket.on("TradesAPI", data => {
+            let result = JSON.parse(data)
+            let response = {...this.state.response, [result.symbol]: result};
+            this.keys=Object.keys(result);
+            this.setState({response})
+        });
     }
     render() {
         const { response } = this.state;
-        if(response){
-            let resultObject = JSON.parse(response);
-            let result =  Object.keys(resultObject).map(function(key, index) {
-                return <div>{resultObject[key]}</div>
+        console.log(response)
+        if(Object.keys(response).length){
+            let resultObject = {...this.state.response}
+            let keys =  <tr>{this.keys.map(k=><td>{k}</td>)}</tr>
+            let values =  Object.keys(resultObject).map(function(key, index) {
+                return <tr>
+                    {Object.keys(resultObject[key]).map((key2, index2) => <td>{resultObject[key][key2]}</td>)}
+                </tr>
             });
+
+            // let result = Object.keys(resultObject).map(function(key) {
+            //     return Object.keys(resultObject[key]).map(function(key2) {
+            //         return <tr>
+            //             <td>{resultObject[key][key2]}</td>
+            //         </tr>
+            //     });});
+
         return (
             <div>
-                <b>Response</b>:
+                <h2>Response</h2>
                 <div>
-                    {
-                        result
-                    }
+                    <table>
+                        {values}
+					</table>
                 </div>
 
 
