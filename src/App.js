@@ -5,7 +5,7 @@ class App extends Component {
         super();
         this.state = {
             response: {},
-            endpoint: "http://dcodeit.net:5001",
+            endpoint: "http://localhost:5001",
 
         };
         this.symbols = ['ETHBTC', 'BTCUSDT', 'ETHUSDT']
@@ -26,26 +26,25 @@ class App extends Component {
         console.log(response)
         if(Object.keys(response).length){
             let resultObject = {...this.state.response}
-            let keys =  <tr>{this.keys.map(k=><td>{k}</td>)}</tr>
-            let values =  Object.keys(resultObject).map(function(key, index) {
-                return <tr>
-                    {Object.keys(resultObject[key]).map((key2, index2) => <td>{resultObject[key][key2]}</td>)}
-                </tr>
-            });
+            let result=[]
+            for(var i in resultObject){
+                for(var j in  resultObject[i]){
+                    result[j] ? result[j].push(resultObject[i][j]) : result[j]=[resultObject[i][j]]
+                }
+            }
 
-            // let result = Object.keys(resultObject).map(function(key) {
-            //     return Object.keys(resultObject[key]).map(function(key2) {
-            //         return <tr>
-            //             <td>{resultObject[key][key2]}</td>
-            //         </tr>
-            //     });});
-
+            console.log('result',result.bestAsk);
         return (
             <div>
                 <h2>Response</h2>
                 <div>
                     <table>
-                        {values}
+                        {Object.keys(result).map((key,index) => {
+                            return <tr className={index%2?'odd':'even'}><td>{key}</td>{result[key].map(item => <td>{item}</td>)}</tr>
+                        })
+
+                        }
+
 					</table>
                 </div>
 

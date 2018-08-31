@@ -1,11 +1,27 @@
 body {
-  margin: 0;
+  margin: 30px;
   padding: 0;
   font-family: sans-serif;
   font-size:12px;
 }
 table{
-  width: 400px;
-  margin:0 auto;
+  border-collapse: collapse;
+}
+tr:first-child{
+  font-weight:bold;
+}
+td:first-child{
+  font-weight:bold;
+
+
+}
+td{
+  white-space:nowrap;
+  padding:2px 8px;
+  text-transform: capitalize;
+  border:1px solid #888;
+}
+tr.even{
+  background:#ddd;
 }
 
