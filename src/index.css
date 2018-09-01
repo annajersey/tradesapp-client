@@ -1,18 +1,20 @@
 body {
   margin: 30px;
   padding: 0;
-  font-family: sans-serif;
-  font-size:12px;
+  font-size:11px;
+  font-family: serif;
 }
 table{
   border-collapse: collapse;
+  font-family: Ubuntu;
 }
 tr:first-child{
   font-weight:bold;
+  font-family: sans-serif;
 }
 td:first-child{
   font-weight:bold;
-
+  font-family: sans-serif;
 
 }
 td{
@@ -23,5 +25,11 @@ td{
 }
 tr.even{
   background:#ddd;
+}
+
+.loading{
+  text-align:center;
+  margin:100px auto;
+  font-size:15px;
 }
 

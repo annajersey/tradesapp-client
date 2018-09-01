@@ -10,7 +10,7 @@ class App extends Component {
             endpoint: "http://localhost:5001",
         };
         this.symbols = ['ETHBTC', 'BTCUSDT', 'ETHUSDT', 'KEYETH', 'NASBTC', 'NASETH',
-            'NASBNB', 'MFTBTC', 'MFTETH', 'MFTBNB']
+            'NASBNB', 'MFTBTC']
 
     }
 
@@ -68,7 +68,7 @@ class App extends Component {
                 </div>
             )
         } else {
-            return 'Loading...'
+            return <div className="loading">Loading...</div>
         }
     }
 }
