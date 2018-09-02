@@ -19,10 +19,10 @@ class App extends Component {
 
         axios.get(endpoint + '/symbols')
             .then(response => {
-                console.log(response.data);
+
                 this.symbols = {};
                 for (let i in response.data) {
-                    this.symbols[response.data[i].symbol] = response.data[i].baseAsset + '/' + response.data[i].quoteAsset;
+                    this.symbols[response.data[i].symbol] = response.data[i].baseasset + '/' + response.data[i].quoteasset;
                 }
 
             })
