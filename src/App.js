@@ -7,7 +7,7 @@ class App extends Component {
         super();
         this.state = {
             response: {},
-            endpoint: "http://localhost:5001",
+            endpoint: "http://dcodeit.net:5001",
         };
         this.symbols = ['ETHBTC', 'BTCUSDT', 'ETHUSDT', 'KEYETH', 'NASBTC', 'NASETH',
             'NASBNB', 'MFTBTC']
@@ -19,7 +19,6 @@ class App extends Component {
 
         axios.get(endpoint + '/symbols')
             .then(response => {
-
                 this.symbols = {};
                 for (let i in response.data) {
                     this.symbols[response.data[i].symbol] = response.data[i].baseasset + '/' + response.data[i].quoteasset;
@@ -41,7 +40,7 @@ class App extends Component {
 
     render() {
         const {response} = this.state;
-        console.log(response)
+        //console.log(response)
         if (Object.keys(response).length) {
             let resultObject = {...this.state.response}
             let result = []
@@ -55,22 +54,23 @@ class App extends Component {
                     <h2>Response</h2>
                     <div>
                         <table>
+                            <tbody>
                             {Object.keys(result).map((key, index) => {
-                                return <tr className={index % 2 ? 'odd' : 'even'}>
+                                return <tr key={index} className={index % 2 ? 'odd' : 'even'}>
                                     <td>{key}</td>
-
-                                    {result[key].map(item => <td>{key === 'symbol' ? this.symbols[item] : item}</td>)}
+                                    {result[key].map((item,i) => <td  key={i}>{key === 'symbol' ? this.symbols[item] : item}</td>)}
                                 </tr>
                             })
                             }
+                            </tbody>
                         </table>
                     </div>
                 </div>
-            )
+        )
         } else {
             return <div className="loading">Loading...</div>
         }
-    }
-}
+        }
+        }
 
-export default App;
+        export default App;
